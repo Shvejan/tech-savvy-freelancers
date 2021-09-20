@@ -1,0 +1,251 @@
+<html lang="en">
+  <head>
+    {% load static %}
+    <title>Techsavy Freelancers</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    body {
+      background-color: #fcfcfc;
+      overflow-x: hidden;
+    }
+    #homeheader {
+      background-color: #fffc00;
+      padding: 10px;
+    }
+    #logo {
+      font-family: bold;
+      font-size: 2em;
+      letter-spacing: 0px;
+      text-shadow: 1px 1px 2px #c4c4c4;
+      color: black;
+      float: right;
+    }
+    #logo:hover {
+      text-decoration: none;
+    }
+    #prfpic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50px;
+      border: solid #e6e6e6 2px;
+    }
+    #project_image {
+      width: 400px;
+    }
+    #certificate_image {
+      width: 200px;
+    }
+    #username {
+      margin-left: 2%;
+      font-size: 2.5em;
+      font-family: bold;
+    }
+    #rating {
+      margin-right: 14%;
+      font-size: 1em;
+    }
+    label {
+      font-family: bold;
+      font-size: 1.7em;
+    }
+    .duration {
+      color: #a5a7a8;
+    }
+    h5 {
+      font-family: "Playfair Display", serif;
+    }
+    h4 {
+      font-family: "Playfair Display", serif;
+    }
+    .lngs {
+      font-size: 1.1;
+    }
+    .skillname {
+      border: 2px solid #a5a7a8;
+      padding: 10px;
+      border-radius: 40%;
+      margin-left: 10px;
+      background-color: #e6e6e6;
+    }
+  </style>
+  <body
+    data-spy="scroll"
+    data-target=".navbar"
+    data-offset="50"
+    id="body"
+    bgcolor="#fcfcfc"
+  >
+    <div class="row">
+      <div class="col-sm-12">
+        <nav class="navbar navbar-default navbar-fixed-top" id="homeheader">
+          <div class="row">
+            <div class="col-sm-4">
+              <a href="" id="logo">Techsavvy Freelancers</a>
+            </div>
+            <div class="col-sm-8"></div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!-- navbar ends -->
+
+    <div class="row" style="margin-top: 5%">
+      <div class="col-sm-2 col-xs-0 col-lg-2"></div>
+      <div class="col-sm-8 col-xs-12 col-lg-8">
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color: white">
+            <img
+              src="http://localhost:8000/media/{{freelancer.profpic}}"
+              id="prfpic"
+            />
+            <span id="username">{{freelancer.name}}</span>
+            <br />
+            <span> <strong> {{freelancer.title}}</strong></span>
+            <br />
+            <span id="rating"
+              ><strong> Rating:</strong> {{freelancer.rating}}</span
+            >
+            <span id="rating"
+              ><strong> Total Jobs done:</strong>
+              {{freelancer.total_jobs}}</span
+            >
+            <span id="rating"
+              ><strong> Total hrs worked:</strong>
+              {{freelancer.total_hrs_worked}}</span
+            >
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div
+                class="col-sm-4 col-lg-4"
+                style="border-right: 1px solid #e6e6e6"
+              >
+                <label>Languages</label>
+                {% for l in freelancer.languages %}
+                <h4><strong>{{l}}</strong></h4>
+                {% endfor %}
+                <hr />
+                <label>Education</label>
+                <h4>
+                  <strong>{{freelancer.education}}</strong>
+                </h4>
+                <span class="duration">2018-2022</span>
+              </div>
+              <div class="col-sm-8 col-lg-8">
+                <label>About Me</label>
+
+                <p>{{freelancer.description}}</p>
+                <br /><br />
+                <label>Projects completed on Techsavvy</label>
+                <div style="padding: 10px">
+                  {% for w in works %}
+                  <h4>
+                    <strong>{{w.client.name}}</strong> -- {{w.title}} Project
+                  </h4>
+                  <br /><br />
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- skills -->
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color: white">
+            <label>Skills</label>
+          </div>
+          <div class="panel-body">
+            <div style="padding: 10px">
+              {% for s in freelancer.skills %}
+              <span class="skillname">{{s}}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color: white">
+            <label>Client Reviews</label><br />
+            <span style="font-family: 'Playfair Display', serif"
+              ><strong>Endorsements from past clients</strong></span
+            >
+          </div>
+          <div class="panel-body">
+            <div style="padding: 10px">
+              {% for w in works %}
+              <h4><strong>{{w.client.name}}</strong></h4>
+              <h5>{{w.title}}</h5>
+              <h6><strong>Rating: {{w.rating}}</strong></h6>
+              <h6>Time spent: {{w.time}} hrs</h6>
+              <p>{{w.comment}}</p>
+              <br /><br />
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- projects -->
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color: white">
+            <label>Previous Projects</label>
+          </div>
+          <div class="panel-body">
+            <div style="padding: 10px">
+              {% for p in projects %}
+              <h4><strong>{{p.title}}</strong></h4>
+              <p>{{p.description}}</p>
+              <img
+                src="http://localhost:8000/media/{{p.photo}}"
+                alt=""
+                id="project_image"
+              />
+              <br /><br /><br />
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color: white">
+            <label>Certifications</label>
+          </div>
+          <div class="panel-body">
+            <div style="padding: 10px">
+              <div style="padding: 10px">
+                {% for c in certificates %}
+                <img
+                  src="http://localhost:8000/media/{{c.photo}}"
+                  alt=""
+                  id="certificate_image"
+                />
+                <h4><strong>{{c.issued_by}}</strong></h4>
+                <br /><br /><br />
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2 col-xs-0 col-lg-2"></div>
+    </div>
+  </body>
+</html>
